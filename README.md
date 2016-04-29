@@ -1,2 +1,4 @@
-# Cmpe314-ProjectGroup
-That Repository includes CMPE314 Lambda Calculus Course's Projects
+# CMPE314-ProjectGroup
+* Muhammet Yusuf Ceylan 111200030
+* Ali Cennet 110200005
+* Mehmetcan Güleşçi 112200032
