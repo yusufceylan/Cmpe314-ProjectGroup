@@ -223,5 +223,15 @@
 (test (interp (numC 25) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 25)
 (test (interp (numC 33) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 33)
 
+;; Tests for plus operation
+(test (interp (plusC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 12)
+(test (interp (plusC (numC 11) (numC 8)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 19)
+(test (interp (plusC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 12)
+(test (interp (plusC (numC 100) (numC 129)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 229)
+(test (interp (plusC (numC 34) (numC 40)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 74)
+(test (interp (plusC (numC 444) (numC 59)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 503)
+(test (interp (plusC (numC 47) (numC 25)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 72)
+(test (interp (plusC (numC 357) (numC 35)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 392)
+
 
 
