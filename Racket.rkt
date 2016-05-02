@@ -329,6 +329,16 @@
 (test (interpEager (ifgz(numC 70) (numC 8) (numC 4)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 8)
 (test (interpEager (ifgz(numC 9) (numC 2) (numC 1)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 2)
 
+;; Tests for plus operation
+(test (interpEager (plusC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 12)
+(test (interpEager (plusC (numC 11) (numC 8)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 19)
+(test (interpEager (plusC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 12)
+(test (interpEager (plusC (numC 100) (numC 129)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 229)
+(test (interpEager (plusC (numC 34) (numC 40)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 74)
+(test (interpEager (plusC (numC 180) (numC 174)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 354)
+(test (interpEager (plusC (numC 5) (numC 4529)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 4534)
+(test (interpEager (plusC (numC 2340) (numC 8362)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 10702)
+
 
 
 
