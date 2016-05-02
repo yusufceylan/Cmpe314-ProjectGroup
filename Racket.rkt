@@ -369,6 +369,15 @@
 (test (interpEager (expC (numC 14) (numC 3)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 2744)
 (test (interpEager (expC (numC 8) (numC 4)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 4096)
 
+;; Tests for factorial operation
+(test (interpEager (factC 1)(fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 1)
+(test (interpEager (factC 2)(fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 2)
+(test (interpEager (factC 3)(fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 6)
+(test (interpEager (factC 4)(fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 24)
+(test (interpEager (factC 5)(fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 120)
+(test (interpEager (factC 13)(fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 6227020800)
+(test (interpEager (factC 7)(fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 5040)
+(test (interpEager (factC 9)(fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 362880)
 
 
 
