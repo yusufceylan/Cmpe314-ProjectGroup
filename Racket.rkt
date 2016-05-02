@@ -147,3 +147,14 @@
                     [(equal? n (fdC-name (first fds))) (first fds)]
                     [else (get-fundef n (rest fds))])]))
 
+;; example list of function definitions
+(define myFun(list  
+  (fdC 'double 'x (plusC (idC 'x) (idC 'x))) 
+  (fdC 'inc5 'x (multC (idC 'x) (idC 'x)))) )
+; (fdC 'quadruple 'x (appC 'double (appC 'double (idC 'x)))) ; (define (quadruple x) (double (double x)))
+; (fdC 'const5 '_ (numC 5))  ; (define (const5 _) 5)
+;; Short Tests for fundef exampleList; 
+  (test (get-fundef 'double myFun) (fdC 'double 'x (plusC (idC 'x) (idC 'x))))
+  (test (get-fundef 'inc5 myFun) (fdC 'inc5 'x (multC (idC 'x) (idC 'x)))) 
+  (fdC 'double1  '(x , y) (plusC (idC  'x) (idC  'y)))
+
