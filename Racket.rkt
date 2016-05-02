@@ -58,15 +58,44 @@
 ;; examples
 ;;  '(+ 12 (+ 12 6)))-> (plusC (numC 12)(plusC (numC 12) (numC 6))))
 ;; (symbol->s-exp 'x))->  (idC 'x))
+;; '(if 1 2 3)->(ifC (numC 1) (numC 2) (numC 3)))
 
-(define (parse [s : s-expression]) : msl
+(define (parse [s :  (listof s-expression)]) : ExprC
   (cond
-    [(s-exp-number? s) (msl-num (s-exp->number s))]
+    [(s-exp-number? s) (numC (s-exp->number s))]
+    [(s-exp-symbol? s) (idC (s-exp->symbol s))]
     [(s-exp-list? s)
-     (let ([val (s-exp->list s)])
-       (case (s-exp->symbol (first val))
-         [(+) (msl-add (parse (second val)) (parse (third val)))]
-         [(*) (msl-mul (parse (second val)) (parse (third val)))]
-         [else (error 'parse "invalid list input")]))]
+     (let ([sl (s-exp->list s)]) 
+       (cond
+         [(= (length sl) 4)
+          (if (symbol=? 'ifgz (s-exp->symbol (first sl)))
+              (ifgz (parse (second sl))
+                       (parse (third sl))
+                       (parse (fourth sl)))
+              (error 'parse "invalid expression as input"))]
+         [(= (length sl) 3)
+          (case (s-exp->symbol (first sl))
+            [(+) (plusC (parse (second sl)) (parse (third sl)))]
+            [(*) (multC (parse (second sl)) (parse (third sl)))]
+            [(**) (expC (parse (second sl)) (parse (third sl)))]
+            [(-) (subC (parse (second sl)) (parse (third sl)))]
+            [else (error 'parse "invalid list input")]
+            )]
+         [(= (length sl) 2)
+          (appC (s-exp->symbol (first sl)) (parse (second sl)))]
+         [else (error 'parse "invalid list input")])
+       )]
     [else (error 'parse "invalid input")]))
+
+;; Tests;
+(test (parse (number->s-exp 2)) (numC 2))
+(test (parse (symbol->s-exp 'a)) (idC 'a))
+(test (parse '(+ 5 2)) (plusC (numC 5) (numC 2)))
+(test (parse '(- 1 3)) (subC (numC 1) (numC 3)))
+(test (parse '(* 7 8)) (multC (numC 7) (numC 8)))
+(test (parse '(** 7 3)) (expC (numC 7) (numC 3)))
+(test (parse '(+ (- 1 2) (* 3 4))) (plusC (subC (numC 1) (numC 2)) (multC (numC 3) (numC 4))))
+(test (parse '(+ a b)) (plusC (idC 'a) (idC 'b)))
+(test (parse '(f (** x y))) (appC 'f (expC (idC 'x) (idC 'y))))
+(test (parse '(ifgz 1 2 3)) (ifgz (numC 1) (numC 2) (numC 3)))
 
