@@ -1,3 +1,6 @@
+;; CMPE-314 Project Group 
+;; Racket.rkt file
+
 ;; Mehmetcan Güleşçi 112200032
 ;; Muhammet Yusuf Ceylan 111200030
 ;; Ali Cennet 110200005
@@ -39,10 +42,31 @@
   [multC (l : ExprC) (r : ExprC)]
   [expC (l : ExprC) (r : ExprC)]
   [factC (n : number)]
-  [idC (s : symbol)] )
+  [idC (s : symbol)] 
+  [factaccC (n : number) (acc : number)]
+  [ifgz (exp1 : ExprC) (exp2 : ExprC) (exp3 : ExprC)]
+  [appC (fun : symbol) (arg : (listof ExprC))]
+ )
 
 ;; Function def with multiple parameters
 ;; Function definitions have a one name, one argument, one body
 (define-type FunDefC
   [fdC (name : symbol) (arg : (listof symbol)) (body : ExprC)])
+
+;; parse s-expression -> ExprC
+;; convert a quoted s expression into the equivalent ExprC form
+;; examples
+;;  '(+ 12 (+ 12 6)))-> (plusC (numC 12)(plusC (numC 12) (numC 6))))
+;; (symbol->s-exp 'x))->  (idC 'x))
+
+(define (parse [s : s-expression]) : msl
+  (cond
+    [(s-exp-number? s) (msl-num (s-exp->number s))]
+    [(s-exp-list? s)
+     (let ([val (s-exp->list s)])
+       (case (s-exp->symbol (first val))
+         [(+) (msl-add (parse (second val)) (parse (third val)))]
+         [(*) (msl-mul (parse (second val)) (parse (third val)))]
+         [else (error 'parse "invalid list input")]))]
+    [else (error 'parse "invalid input")]))
 
