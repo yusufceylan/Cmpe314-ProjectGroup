@@ -183,3 +183,35 @@
      [ifgz (exp1 exp2 exp3) (ifgz (subst what for exp1) (subst what for exp2) (subst what for exp3))]
      [factaccC (x fact) (factaccC (subst what for x) (subst what for fact))]))
 
+;; Interp
+;; ExprC -> fds -> number
+;; it takes an expression and list of function definitions and output 
+;; a number
+;; Example:
+;; (interp (numC 2) (fdC 'double 'x (plusC (idC 'x) (idC 'x))))  -->  2
+;; Function Application
+(define (interp [e : ExprC] [fds : (listof FunDefC)]) : number
+   (type-case ExprC e
+   [numC (n) n]
+   [idC (_) (error 'interp "shouldn't get here")]
+   [appC (f a) (local ([define fd (get-fundef f fds)])
+               (interp (subst a
+                              (fdC-arg fd)
+                              (fdC-body fd))
+                       fds))]
+   [ifgz (exp1 exp2 exp3) (cond
+                           [(> (interp exp1 fds) 0) (interp exp2 fds)]
+                        [else (interp exp3 fds)])]
+   [plusC (l r) (+ (interp l fds) (interp r fds))]
+   [subC (l r) (- (interp l fds) (interp r fds))]
+   [multC (l r) (* (interp l fds) (interp r fds))]
+   [expC (l r) (expt (interp l fds) (interp r fds))]
+   [factC (x) (cond
+               [(= x 1) 1]
+               [else (* x (interp (factC (- x 1)) fds))])]
+   [factaccC (x acc) (cond
+                       [(= x 1) acc]
+                       [else (interp (factaccC (- x 1) (* x acc)) fds)])]))
+
+
+
