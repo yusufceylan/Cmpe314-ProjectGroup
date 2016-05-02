@@ -134,3 +134,16 @@
 (test (parse '(f (** x y))) (appC 'f (expC (idC 'x) (idC 'y))))
 (test (parse '(ifgz 1 2 3)) (ifgz (numC 1) (numC 2) (numC 3)))
 
+;;get-fundef
+;;symbol (list of func definitions)-> : FunDefC
+;;Purpose
+;; it takes a symobol and generate a function definition.
+;; a recursive helper function to find the representation of a function 
+;; definition from the list, given its name
+(define (get-fundef [n : symbol] [fds : (listof FunDefC)]) : FunDefC
+   (cond
+     [(empty? fds) (error 'get-fundef "reference to undefined function")]
+     [(cons? fds) (cond
+                    [(equal? n (fdC-name (first fds))) (first fds)]
+                    [else (get-fundef n (rest fds))])]))
+
