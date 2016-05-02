@@ -308,6 +308,17 @@
                        [(= x 1) acc]
                        [else (interpEager (factaccC (- x 1) (* x acc)) fds)])]))
 
+;; TESTS FOR INTERP 3 (EAGER APPROACH)
+(test (interpEager (numC 5) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 5)
+(test (interpEager (numC 15) (fdC 'double  'x (plusC (idC 'x) (idC 'x)))) 15)
+(test (interpEager (numC 2) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 2)
+(test (interpEager (numC 7) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 7)
+(test (interpEager (numC 1) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 1)
+(test (interpEager (numC 455) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 455)
+(test (interpEager (numC 22) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 22)
+(test (interpEager (numC 999) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 999)
+(test (interpEager (numC 241) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 241)
+
 
 
 
