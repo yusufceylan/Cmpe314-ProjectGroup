@@ -233,5 +233,16 @@
 (test (interp (plusC (numC 47) (numC 25)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 72)
 (test (interp (plusC (numC 357) (numC 35)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 392)
 
+;; Tests for igz (if greater than zero)
+(test (interp (ifgz(numC 5) (numC 1) (numC 0)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 1)
+(test (interp (ifgz(numC -5) (numC 1) (numC 0)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 0)
+(test (interp (ifgz(numC 55) (numC 1) (numC 0)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 1)
+(test (interp (ifgz(numC 555) (numC 1) (numC 0)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 1)
+(test (interp (ifgz(numC -5555) (numC 1) (numC 0)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 0)
+(test (interp (ifgz(numC 10) (numC 5) (numC 0)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 5)
+(test (interp (ifgz(numC 7) (numC 5) (numC 3)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 5)
+(test (interp (ifgz(numC 60) (numC 2) (numC 9)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 2)
+(test (interp (ifgz(numC 444) (numC 3) (numC 1)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 3)
+
 
 
