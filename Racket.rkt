@@ -359,6 +359,16 @@
 (test (interpEager (multC (numC 34) (numC 235)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 7990)
 (test (interpEager (multC (numC 87) (numC 567)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 49329)
 
+;; Tests for exponention operation
+(test (interpEager (expC (numC 2) (numC 4)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 16)
+(test (interpEager (expC (numC 11) (numC 2)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 121)
+(test (interpEager (expC (numC 7) (numC 3)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 343)
+(test (interpEager (expC (numC 10) (numC 3)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 1000)
+(test (interpEager (expC (numC 4) (numC 3)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 64)
+(test (interpEager (expC (numC 27) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 14348907)
+(test (interpEager (expC (numC 14) (numC 3)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 2744)
+(test (interpEager (expC (numC 8) (numC 4)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 4096)
+
 
 
 
