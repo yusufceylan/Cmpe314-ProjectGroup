@@ -349,6 +349,16 @@
 (test (interpEager (subC (numC 547) (numC 55)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 492)
 (test (interpEager (subC (numC 689) (numC 6325)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) -5636)
 
+;; Tests for multiplaction
+(test (interpEager (multC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 35)
+(test (interpEager (multC (numC 11) (numC 8)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 88)
+(test (interpEager (multC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 35)
+(test (interpEager (multC (numC 10) (numC 129)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 1290)
+(test (interpEager (multC (numC 34) (numC 40)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 1360)
+(test (interpEager (multC (numC 124) (numC 1241)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 153884)
+(test (interpEager (multC (numC 34) (numC 235)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 7990)
+(test (interpEager (multC (numC 87) (numC 567)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 49329)
+
 
 
 
