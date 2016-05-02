@@ -254,5 +254,15 @@
 (test (interp (subC (numC 445) (numC 19)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 426)
 (test (interp (subC (numC 81) (numC 25)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 56)
 
+;; Tests for multiplaction
+(test (interp (multC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 35)
+(test (interp (multC (numC 11) (numC 8)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 88)
+(test (interp (multC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 35)
+(test (interp (multC (numC 10) (numC 129)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 1290)
+(test (interp (multC (numC 34) (numC 40)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 1360)
+(test (interp (multC (numC 68) (numC 26)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 1768)
+(test (interp (multC (numC 19) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 95)
+(test (interp (multC (numC 27) (numC 115)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 3105)
+
 
 
