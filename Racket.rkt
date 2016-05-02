@@ -244,5 +244,15 @@
 (test (interp (ifgz(numC 60) (numC 2) (numC 9)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 2)
 (test (interp (ifgz(numC 444) (numC 3) (numC 1)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 3)
 
+;; Tests for subtraction operation
+(test (interp (subC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 2)
+(test (interp (subC (numC 11) (numC 8)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 3)
+(test (interp (subC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 2)
+(test (interp (subC (numC 100) (numC 129)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) -29)
+(test (interp (subC (numC 34) (numC 40)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) -6)
+(test (interp (subC (numC 27) (numC 115)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) -88)
+(test (interp (subC (numC 445) (numC 19)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 426)
+(test (interp (subC (numC 81) (numC 25)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 56)
+
 
 
