@@ -284,6 +284,30 @@
 (test (interp (factC 9)(fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 362880)
 (test (interp (factC 15)(fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 1307674368000)
 
+;; EAGER APPROACH (interp)
+(define (interpEager [e : ExprC] [fds : (listof FunDefC)]) : number
+   (type-case ExprC e
+   [numC (n) n]
+   [idC (_) (error interpEager "shouldn't get here")]
+   [appC (f a) (local ([define fd (get-fundef f fds)])    
+                 (interpEager (subst (numC (interpEager a fds))
+                                 (fdC-arg fd)
+                                 (fdC-body fd))
+                          fds))]
+   [ifgz (exp1 exp2 exp3) (cond
+                           [(> (interpEager exp1 fds) 0) (interpEager exp2 fds)]
+                        [else (interpEager exp3 fds)])]
+   [plusC (l r) (+ (interpEager l fds) (interpEager r fds))]
+   [subC (l r) (- (interpEager l fds) (interpEager r fds))]
+   [multC (l r) (* (interpEager l fds) (interpEager r fds))]
+   [expC (l r) (expt (interpEager l fds) (interpEager r fds))]
+   [factC (x) (cond
+               [(= x 1) 1]
+               [else (* x (interpEager (factC (- x 1)) fds))])]
+   [factaccC (x acc) (cond
+                       [(= x 1) acc]
+                       [else (interpEager (factaccC (- x 1) (* x acc)) fds)])]))
+
 
 
 
