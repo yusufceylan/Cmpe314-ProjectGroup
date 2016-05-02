@@ -213,5 +213,15 @@
                        [(= x 1) acc]
                        [else (interp (factaccC (- x 1) (* x acc)) fds)])]))
 
+;; TESTS FOR INTERP(Lazy)
+(test (interp (numC 5) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 5)
+(test (interp (numC 15) (fdC 'double  'x (plusC (idC 'x) (idC 'x)))) 15)
+(test (interp (numC 2) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 2)
+(test (interp (numC 7) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 7)
+(test (interp (numC 11) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 11)
+(test (interp (numC 6) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 6)
+(test (interp (numC 25) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 25)
+(test (interp (numC 33) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 33)
+
 
 
