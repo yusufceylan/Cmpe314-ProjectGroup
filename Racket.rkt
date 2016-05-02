@@ -157,4 +157,29 @@
   (test (get-fundef 'double myFun) (fdC 'double 'x (plusC (idC 'x) (idC 'x))))
   (test (get-fundef 'inc5 myFun) (fdC 'inc5 'x (multC (idC 'x) (idC 'x)))) 
   (fdC 'double1  '(x , y) (plusC (idC  'x) (idC  'y)))
+  
+;; Subst
+;; ExprC symbol ExprC -> ExprC
+;; Purpose
+;; it takes a expression ( numC 7) , argument ('x) and the function it self. It produces the function with changes(numC 7) placed for every 'x in function
+;; Examples
+;; (subst(numC 7) 'x (plusC (plusC (idC  'x) (idC  'x)) (idC 'x))) -> (plusC (plusC (numC 7) (numC 7)) (numC 7))
+(define (subst [what : (listof ExprC)] [for : (listof symbol)] [in : ExprC]) : ExprC
+     (type-case ExprC in
+     [numC (n) in]
+     [idC (s) (cond
+              [(symbol=? s for) what]
+              [else in])]
+     [appC (f a) (appC f (subst what for a))]
+     [plusC (l r) (plusC (subst what for l)
+                         (subst what for r))]
+     [subC (l r) (plusC (subst what for l)
+                         (subst what for r))]
+     [multC (l r) (multC (subst what for l)
+                         (subst what for r))]
+     [expC (l r) (multC (subst what for l)
+                          (subst what for r))]
+     [factC (x) (factC (subst what for x))]
+     [ifgz (exp1 exp2 exp3) (ifgz (subst what for exp1) (subst what for exp2) (subst what for exp3))]
+     [factaccC (x fact) (factaccC (subst what for x) (subst what for fact))]))
 
