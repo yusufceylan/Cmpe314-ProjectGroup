@@ -319,6 +319,16 @@
 (test (interpEager (numC 999) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 999)
 (test (interpEager (numC 241) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 241)
 
+;; Tests for igz (if greater than zero)
+(test (interpEager (ifgz(numC 5) (numC 1) (numC 0)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 1)
+(test (interpEager (ifgz(numC -5) (numC 1) (numC 0)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 0)
+(test (interpEager (ifgz(numC 55) (numC 1) (numC 0)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 1)
+(test (interpEager (ifgz(numC 555) (numC 1) (numC 0)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 1)
+(test (interpEager (ifgz(numC -5555) (numC 1) (numC 0)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 0)
+(test (interpEager (ifgz(numC -4) (numC 1) (numC -5)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) -5)
+(test (interpEager (ifgz(numC 70) (numC 8) (numC 4)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 8)
+(test (interpEager (ifgz(numC 9) (numC 2) (numC 1)) (fdC 'double 'x (plusC (idC 'x) (idC  'x)))) 2)
+
 
 
 
