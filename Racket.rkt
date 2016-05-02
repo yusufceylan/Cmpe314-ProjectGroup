@@ -339,6 +339,16 @@
 (test (interpEager (plusC (numC 5) (numC 4529)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 4534)
 (test (interpEager (plusC (numC 2340) (numC 8362)) (fdC 'double 'x (plusC (idC  'x) (idC 'x)))) 10702)
 
+;; Tests for subtraction operation
+(test (interpEager (subC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 2)
+(test (interpEager (subC (numC 11) (numC 8)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 3)
+(test (interpEager (subC (numC 7) (numC 5)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 2)
+(test (interpEager (subC (numC 100) (numC 129)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) -29)
+(test (interpEager (subC (numC 34) (numC 40)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) -6)
+(test (interpEager (subC (numC 37) (numC 13415)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) -13378)
+(test (interpEager (subC (numC 547) (numC 55)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) 492)
+(test (interpEager (subC (numC 689) (numC 6325)) (fdC 'double 'x (plusC (idC 'x) (idC 'x)))) -5636)
+
 
 
 
