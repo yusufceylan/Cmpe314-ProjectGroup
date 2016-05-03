@@ -95,3 +95,14 @@
     (λ-def (v p)(list->s-exp 
                  (list (symbol->s-exp 'λ)(symbol->s-exp v)(unparse p))))
     ))
+
+;; Test:
+(test (unparse (λ-sym 'y))(symbol->s-exp 'y))
+(test (unparse (λ-def 'x (λ-sym 'x))) '(λ x x))
+(test (unparse (λ-app (λ-def 'x (λ-sym 'x)) (λ-sym 'y)))
+               '((λ x x) y))
+(test (unparse (λ-app (λ-def 'x (λ-sym 'x))(λ-def 'y (λ-sym 'y))))
+       '((λ x x)(λ y y)))
+      
+(test (unparse (λ-def 'x (λ-def 'y (λ-app (λ-sym 'y) (λ-sym 'x)))))
+       '(λ x (λ y (y x))))
