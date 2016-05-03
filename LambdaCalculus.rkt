@@ -35,5 +35,19 @@
                    [else (lookup n (rest env))])]))
 
 
+;; λ-expression grammar
+;; λ-calc -> v
+;; λ-calc -> (λ-calc λ-calc)
+;; λ-calc -> (λ v λ-calc)
+;; where v is a symbol.
+
+
+;; λ-exp is an abstract syntax grammar or a parse tree definition for
+;; - λ-exp that defined above.
+(define-type λ-exp
+  (λ-sym (v : symbol))
+  (λ-app (l : λ-exp)(r : λ-exp))
+  (λ-def (v : symbol)(p : λ-exp))
+  )
 
 
