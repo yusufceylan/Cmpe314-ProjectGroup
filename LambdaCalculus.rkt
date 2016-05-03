@@ -131,3 +131,13 @@
 (define add '(λ n (λ m (λ f (λ x ((n f) ((m f) x)))))))
 (beta-transformer(parsel add))
 
+;; A set represented as a list.
+;; union:  (listof symbol) (listof symbol) -> (listof symbol)
+;; Purpose: Finding the union of two sets.
+(define (union (s1 : (listof symbol)) (s2 : (listof symbol))) : (listof symbol)
+  (foldr (lambda (x y)
+           (if (member x y)
+               y
+               (cons x y))) 
+         empty
+         (append s1 s2)))
