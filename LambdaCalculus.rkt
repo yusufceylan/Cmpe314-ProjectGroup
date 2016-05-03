@@ -148,3 +148,15 @@
   (filter (lambda (x)
             (not (member x s2)))
           s1))
+
+;; free-identifier: λ-exp -> (listof symbol)
+;; find free identifiers in given λ expression.
+(define (free-identifier (le : λ-exp)) : (listof symbol)
+  (type-case λ-exp le
+    (λ-sym (v) (list v))
+    (λ-app (l r)(union 
+                 (free-identifier l)
+                 (free-identifier r)))
+    (λ-def (v p)(set-difference (free-identifier p)
+                                (list v)))
+    ))
