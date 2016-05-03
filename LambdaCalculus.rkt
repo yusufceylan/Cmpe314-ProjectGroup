@@ -205,3 +205,12 @@
 (test (parsel (symbol->s-exp 'y))(λ-sym 'y))
 (test (parsel '(λ x x))(λ-def 'x (λ-sym 'x)))
 (test (parsel '((λ x x) y))(λ-app (λ-def 'x (λ-sym 'x)) (λ-sym 'y)))
+
+(test (unparse (λ-sym 'y))(symbol->s-exp 'y))
+(test (unparse (λ-def 'x (λ-sym 'x))) '(λ x x))
+(test (unparse (λ-app (λ-def 'x (λ-sym 'x)) (λ-sym 'y))) '((λ x x) y))
+
+(test (free-identifier (parsel '(λ x x))) empty)
+(test (free-identifier (parsel '(λ x y))) (list 'y))
+(test (free-identifier (parsel '((λ x y)(λ y z)))) (list 'y 'z))
+(test (free-identifier (parsel '((λ f y)(λ z z)))) (list 'y))
