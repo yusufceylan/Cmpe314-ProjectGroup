@@ -50,4 +50,8 @@
   (λ-def (v : symbol)(p : λ-exp))
   )
 
+;; Tests:
+(λ-sym 'x)
+(λ-app (λ-sym 'x)(λ-sym 'y))
+(λ-def 'v (λ-app (λ-sym 'x)(λ-sym 'y)))
 
