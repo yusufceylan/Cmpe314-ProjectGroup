@@ -192,3 +192,16 @@
 (make-new-ident 'a-123)
 (make-new-ident 'hıdır)
 (make-new-ident 'hıdır-7)
+
+;; TESTS:
+;; (λ-sym 'x)
+;; (λ-app (λ-sym 'x)(λ-sym 'y))
+;; (λ-def 'v (λ-app (λ-sym 'x)(λ-sym 'y)))
+
+(test (union empty empty) empty)
+(test (union empty (list 'x)) (list 'x))
+(test (union (list 'x)(list 'x 'y)) (list 'x 'y))
+
+(test (parsel (symbol->s-exp 'y))(λ-sym 'y))
+(test (parsel '(λ x x))(λ-def 'x (λ-sym 'x)))
+(test (parsel '((λ x x) y))(λ-app (λ-def 'x (λ-sym 'x)) (λ-sym 'y)))
