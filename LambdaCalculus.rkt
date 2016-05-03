@@ -24,6 +24,16 @@
   [numvalue (n : number)]
   [functionvalue (params : (listof symbol)) (body : ExtendedMPF) (env : Env)])
 
+;;lookup function takes n as a symbol and environment which includes binding values,
+;; then it checks wheter this funciton in environment or not?
+;;if there is,it produces value otherwise it gives error
+(define (lookup [n : symbol] [env : Env]) : number
+  (cond
+    [(empty? env) (error 'lookup "Symbol not found in env")]
+    [(cons? env) (cond
+                   [(equal? n (bind-name (first env))) (bind-val (first env))]
+                   [else (lookup n (rest env))])]))
+
 
 
 
