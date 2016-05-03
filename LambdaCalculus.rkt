@@ -85,3 +85,13 @@
       (λ-app (λ-def 'x (λ-sym 'x))(λ-def 'y (λ-sym 'y))))
 (test (parsel '(λ x (λ y (y x))))
       (λ-def 'x (λ-def 'y (λ-app (λ-sym 'y) (λ-sym 'x)))))
+
+;; unparse : λ-exp -> s-exp
+;; Purpose : To produce concrete syntax from given abstract syntax.
+(define (unparse (le : λ-exp)) : s-expression
+  (type-case λ-exp le
+    (λ-sym (v) (symbol->s-exp v))
+    (λ-app (l r)(list->s-exp (list (unparse l)(unparse r))))
+    (λ-def (v p)(list->s-exp 
+                 (list (symbol->s-exp 'λ)(symbol->s-exp v)(unparse p))))
+    ))
