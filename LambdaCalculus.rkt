@@ -214,3 +214,10 @@
 (test (free-identifier (parsel '(λ x y))) (list 'y))
 (test (free-identifier (parsel '((λ x y)(λ y z)))) (list 'y 'z))
 (test (free-identifier (parsel '((λ f y)(λ z z)))) (list 'y))
+
+(test (beta-transformer (parsel '((λ x x) a))) (parsel (symbol->s-exp 'a)))
+(test (beta-transformer (parsel '((λ x y) a))) (parsel (symbol->s-exp 'y)))
+(test (beta-transformer (parsel '((λ x (a b)) k))) (parsel '(a b)))
+(test (beta-transformer (parsel '((λ x (λ x y)) k))) (parsel '(λ x y)))
+(test (beta-transformer (parsel '((λ x (λ y x)) k))) (parsel '(λ y k)))
+(test (beta-transformer (parsel '((λ x (λ y (x y))) k))) (parsel '(λ y (k y))))
