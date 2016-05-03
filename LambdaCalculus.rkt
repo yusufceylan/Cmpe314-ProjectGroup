@@ -55,3 +55,25 @@
 (λ-app (λ-sym 'x)(λ-sym 'y))
 (λ-def 'v (λ-app (λ-sym 'x)(λ-sym 'y)))
 
+;; parse : s-exp -> λ-exp
+;; Purpose : To transform given s-expression to corresponding
+(define (parsel (sexp : s-expression)) : λ-exp
+  (cond
+    [(s-exp-symbol? sexp)(λ-sym (s-exp->symbol sexp))]
+    [(s-exp-list? sexp)
+     (let ([sexp-list (s-exp->list sexp)])
+       (cond
+         [(= 2 (length sexp-list))
+          (λ-app (parsel (first sexp-list))(parsel (second sexp-list)))]
+         [(= 3 (length sexp-list))
+          (if (and (symbol=? 'λ (s-exp->symbol (first sexp-list)))
+                   (s-exp-symbol? (second sexp-list)))
+              (λ-def (s-exp->symbol(second sexp-list))
+                     (parsel (third sexp-list)))
+              (error parsel "Not valid λ-definition")
+              )]
+         [else (error parsel "Not valid length λ-exp")]
+         ))]
+    [else (error parsel "Not valid λ-exp")]
+))
+
