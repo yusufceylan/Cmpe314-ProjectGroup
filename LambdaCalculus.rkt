@@ -141,3 +141,10 @@
                (cons x y))) 
          empty
          (append s1 s2)))
+
+;; set-difference: (listof symbol) (listof symbol) -> (listof symbol)
+;; To find the set difference of two sets.
+(define (set-difference (s1 : (listof symbol))  (s2 : (listof symbol))) : (listof symbol)
+  (filter (lambda (x)
+            (not (member x s2)))
+          s1))
