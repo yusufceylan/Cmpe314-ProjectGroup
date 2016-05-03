@@ -2,7 +2,8 @@
 ;; Muhammet Yusuf Ceylan 111200030
 ;; Ali Cennet 110200005
 
-#lang plai-typed
+#lang racket
+(require plai-typed)
 
 ;Binding
 ;this function takes symbol as name and value which is number
@@ -15,4 +16,14 @@
 
 ;; Empty environment.
 (define mt-env empty)
+
+;; Extending environment
+(define extend-env cons)
+
+(define-type Value
+  [numvalue (n : number)]
+  [functionvalue (params : (listof symbol)) (body : ExtendedMPF) (env : Env)])
+
+
+
 
