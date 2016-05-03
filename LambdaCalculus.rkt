@@ -99,10 +99,17 @@
 ;; Test:
 (test (unparse (λ-sym 'y))(symbol->s-exp 'y))
 (test (unparse (λ-def 'x (λ-sym 'x))) '(λ x x))
-(test (unparse (λ-app (λ-def 'x (λ-sym 'x)) (λ-sym 'y)))
-               '((λ x x) y))
-(test (unparse (λ-app (λ-def 'x (λ-sym 'x))(λ-def 'y (λ-sym 'y))))
-       '((λ x x)(λ y y)))
-      
-(test (unparse (λ-def 'x (λ-def 'y (λ-app (λ-sym 'y) (λ-sym 'x)))))
-       '(λ x (λ y (y x))))
+(test (unparse (λ-app (λ-def 'x (λ-sym 'x)) (λ-sym 'y)))'((λ x x) y))
+(test (unparse (λ-app (λ-def 'x (λ-sym 'x))(λ-def 'y (λ-sym 'y))))'((λ x x)(λ y y)))    
+(test (unparse (λ-def 'x (λ-def 'y (λ-app (λ-sym 'y) (λ-sym 'x)))))'(λ x (λ y (y x))))
+
+;; substituter : λ-exp symbol λ-exp -> λ-exp
+;; Purpose : we will use this in beta-transformer
+(define (substituter [what : λ-exp] [for : symbol] [in : λ-exp]) : λ-exp 
+  (type-case λ-exp in
+    (λ-sym (v) (if (symbol=? v for) 
+                   what
+                   in))
+    (λ-app (l r) (λ-app (substituter what for l)
+                        (substituter what for r)))
+    (λ-def (v p)(λ-def v (substituter what for p)))))
