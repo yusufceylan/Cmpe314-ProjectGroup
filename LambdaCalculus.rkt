@@ -113,3 +113,21 @@
     (λ-app (l r) (λ-app (substituter what for l)
                         (substituter what for r)))
     (λ-def (v p)(λ-def v (substituter what for p)))))
+
+; beta-transformer ((λ x M) N) --> [M:x=N]
+(define (beta-transformer (le : λ-exp)) : λ-exp
+  (type-case λ-exp le
+    (λ-sym (v) le) 
+    (λ-app (l r) (if (λ-def? l)
+                     (substituter r (λ-def-v l) (λ-def-p l))
+                     (λ-app (beta-transformer l) (beta-transformer r))))
+    (λ-def (v p) (λ-def v (beta-transformer p)))))
+
+(define zero '(λ f (λ x x)))
+(define one '(λ f (λ x (f x))))
+(define two '(λ f (λ x (f (f x)))))
+(define succ '(λ n (λ f (λ x (f ((n f) x))))))
+(define (church->number n) ((n add1) 0))
+(define add '(λ n (λ m (λ f (λ x ((n f) ((m f) x)))))))
+(beta-transformer(parsel add))
+
