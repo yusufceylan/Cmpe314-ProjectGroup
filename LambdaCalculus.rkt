@@ -77,3 +77,11 @@
     [else (error parsel "Not valid λ-exp")]
 ))
 
+;; Tests:
+(test (parsel (symbol->s-exp 'y))(λ-sym 'y))
+(test (parsel '(λ x x))(λ-def 'x (λ-sym 'x)))
+(test (parsel '((λ x x) y))(λ-app (λ-def 'x (λ-sym 'x)) (λ-sym 'y)))
+(test (parsel '((λ x x)(λ y y)))
+      (λ-app (λ-def 'x (λ-sym 'x))(λ-def 'y (λ-sym 'y))))
+(test (parsel '(λ x (λ y (y x))))
+      (λ-def 'x (λ-def 'y (λ-app (λ-sym 'y) (λ-sym 'x)))))
